@@ -1,5 +1,5 @@
 require("@nomicfoundation/hardhat-toolbox")
-require("./tasks")
+//require("./tasks")
 require("dotenv").config()
 
 const COMPILER_SETTINGS = {
@@ -15,7 +15,7 @@ const COMPILER_SETTINGS = {
 const MAINNET_RPC_URL =
     process.env.MAINNET_RPC_URL ||
     process.env.ALCHEMY_MAINNET_RPC_URL ||
-    "https://eth-mainnet.alchemyapi.io/v2/your-api-key"
+    "https://eth-mainnet.g.alchemy.com/v2/-WLJ3jDAnx25hJT0OkNbYjveFBrL_z9k"
 const POLYGON_MAINNET_RPC_URL =
     process.env.POLYGON_MAINNET_RPC_URL || "https://polygon-mainnet.alchemyapi.io/v2/your-api-key"
 const SEPOLIA_RPC_URL = process.env.SEPOLIA_RPC_URL
@@ -49,6 +49,10 @@ module.exports = {
             },
             {
                 version: "0.8.0",
+                settings: COMPILER_SETTINGS,
+            },
+            {
+                version: "0.4.19",
                 settings: COMPILER_SETTINGS,
             },
         ],
