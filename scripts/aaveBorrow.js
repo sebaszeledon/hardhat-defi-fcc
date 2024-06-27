@@ -18,7 +18,14 @@ async function main() {
     const lendingPool = await ethers.getContractAt("ILendingPool", lendingPoolAddress, account);
     return lendingPool;
 }
- 
+
+async function approveErc20(erc20Address, spenderAddress, amount, signer) {
+    const erc20Token = await ethers.getContractAt("IERC20", erc20Address, signer);
+    txResponse = await erc20Token.approve(spenderAddress, amount);
+    await txResponse.wait(1);
+    console.log("Approved!");
+}
+
  main()
     .then(() => process.exit(0))
     .catch((error) => {
