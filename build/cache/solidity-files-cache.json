@@ -155,6 +155,44 @@
       "artifacts": [
         "DataTypes"
       ]
+    },
+    "/Users/Sebas/hh-fcc/hardhat-defi-fcc/contracts/interfaces/IERC20.sol": {
+      "lastModificationDate": 1719454267953,
+      "contentHash": "8d7df49826179e4e1015772df3bfe47f",
+      "sourceName": "contracts/interfaces/IERC20.sol",
+      "solcConfig": {
+        "version": "0.6.12",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 1000000
+          },
+          "metadata": {
+            "bytecodeHash": "none"
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.6.6"
+      ],
+      "artifacts": [
+        "IERC20"
+      ]
     }
   }
 }
