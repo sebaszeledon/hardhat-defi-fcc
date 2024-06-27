@@ -55,6 +55,10 @@ module.exports = {
                 version: "0.4.19",
                 settings: COMPILER_SETTINGS,
             },
+            {
+                version: "0.6.12",
+                settings: COMPILER_SETTINGS,
+            },
         ],
     },
     networks: {

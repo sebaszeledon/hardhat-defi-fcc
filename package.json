@@ -16,6 +16,7 @@
     },
     "devDependencies": {
       "@chainlink/contracts": "^1.1.1",
+      "@aave/protocol-v2": "^1.0.1",
       "@ethersproject/abi": "^5.7.0",
       "@ethersproject/providers": "^5.7.1",
       "@nomicfoundation/hardhat-chai-matchers": "^1.0.3",
