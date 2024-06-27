@@ -1,10 +1,15 @@
- const { getWeth } = require("../scripts/getWeth");
+ const { getWeth, AMOUNT } = require("../scripts/getWeth");
 
 async function main() {
 
     await getWeth();
     const [ deployer ] = await ethers.getSigners();
     const lendingPool = await getLendingPool(deployer);
+    const wethTokenAddress = networkConfig[network.config.chainId].wethToken;
+    await approveErc20(wethTokenAddress, lendingPool.address, AMOUNT, deployer);
+    console.log("Depositing WETH...");
+    await lendingPool.deposit(wethTokenAddress, AMOUNT, deployer, 0)
+    console.log("Desposited!")
 
  }
 
@@ -33,4 +38,4 @@ async function approveErc20(erc20Address, spenderAddress, amount, signer) {
         process.exit(1);
     });
 
-// 19:30:50
+// 19:57:41
