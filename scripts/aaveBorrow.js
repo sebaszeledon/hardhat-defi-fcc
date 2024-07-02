@@ -25,7 +25,16 @@ async function main() {
         deployer
     );
     await getBorrowUserData(lendingPool, deployer);
+    await repay(amountDaiToBorrowWei, daiTokenAddress, lendingPool, deployer);
+    await getBorrowUserData(lendingPool, deployer);
  }
+
+ async function repay(amount, daiAddress, lendingPool, account) {
+    await approveErc20(daiAddress, lendingPool.address, amount, account);
+    const repayTx = await lendingPool.repay(daiAddress, amount, BORROW_MODE, account);
+    await repayTx.wait(1);
+    console.log("Repaid!");
+}
 
  async function getLendingPool(account) {
     const lendingPoolAddressesProvider = await ethers.getContractAt(
@@ -80,4 +89,4 @@ async function getBorrowUserData(lendingPool, account) {
         process.exit(1);
     });
 
-// 19:57:48
+// 20:30
