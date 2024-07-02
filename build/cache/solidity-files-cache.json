@@ -193,6 +193,44 @@
       "artifacts": [
         "IERC20"
       ]
+    },
+    "/Users/Sebas/hh-fcc/hardhat-defi-fcc/contracts/interfaces/AggregatorV3Interface.sol": {
+      "lastModificationDate": 1719890796069,
+      "contentHash": "48153e587d279397be8f1eea470db157",
+      "sourceName": "contracts/interfaces/AggregatorV3Interface.sol",
+      "solcConfig": {
+        "version": "0.6.12",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 1000000
+          },
+          "metadata": {
+            "bytecodeHash": "none"
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.6.0"
+      ],
+      "artifacts": [
+        "AggregatorV3Interface"
+      ]
     }
   }
 }

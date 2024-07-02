@@ -1,4 +1,7 @@
- const { getWeth, AMOUNT } = require("../scripts/getWeth");
+ const { ethers } = require("hardhat");
+const { getWeth, AMOUNT } = require("../scripts/getWeth");
+
+const BORROW_MODE = 2 // Variable borrow mode. Stable was disabled. 
 
 async function main() {
 
@@ -11,7 +14,17 @@ async function main() {
     await lendingPool.deposit(wethTokenAddress, AMOUNT, deployer, 0);
     console.log("Desposited!");
     let { availableBorrowsETH, totalDebtETH } = await getBorrowUserData(lendingPool, deployer);
-
+    const daiPrice = await getDaiPrice();
+    const amountDaiToBorrow = availableBorrowsETH.toString() * 0.95 * (1 / daiPrice.toNumber());
+    console.log(`You can borrow ${amountDaiToBorrow} DAI`);
+    const amountDaiToBorrowWei = ethers.parseEther(amountDaiToBorrow.toString());
+    await borrowDai(
+        networkConfig[network.config.chainId].daiToken,
+        lendingPool,
+        amountDaiToBorrowWei,
+        deployer
+    );
+    await getBorrowUserData(lendingPool, deployer);
  }
 
  async function getLendingPool(account) {
@@ -25,11 +38,27 @@ async function main() {
     return lendingPool;
 }
 
+async function borrowDai(daiAddress, lendingPool, amountDaiToBorrow, account) {
+    const borrowTx = await lendingPool.borrow(daiAddress, amountDaiToBorrow, BORROW_MODE, 0, account);
+    await borrowTx.wait(1);
+    console.log("You've borrowed!");
+}
+
 async function approveErc20(erc20Address, spenderAddress, amount, signer) {
     const erc20Token = await ethers.getContractAt("IERC20", erc20Address, signer);
     txResponse = await erc20Token.approve(spenderAddress, amount);
     await txResponse.wait(1);
     console.log("Approved!");
+}
+
+async function getDaiPrice() {
+    const daiEthPriceFeed = await ethers.getContractAt(
+        "AggregatorV3Interface",
+        networkConfig[network.config.chainId].daiEthPriceFeed
+    )
+    const price = (await daiEthPriceFeed.latestRoundData())[1]
+    console.log(`The DAI/ETH price is ${price.toString()}`);
+    return price;
 }
 
 async function getBorrowUserData(lendingPool, account) {
