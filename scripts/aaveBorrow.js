@@ -38,4 +38,4 @@ async function approveErc20(erc20Address, spenderAddress, amount, signer) {
         process.exit(1);
     });
 
-// 19:57:38
+// 19:57:48
