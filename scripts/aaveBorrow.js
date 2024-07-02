@@ -8,8 +8,9 @@ async function main() {
     const wethTokenAddress = networkConfig[network.config.chainId].wethToken;
     await approveErc20(wethTokenAddress, lendingPool.address, AMOUNT, deployer);
     console.log("Depositing WETH...");
-    await lendingPool.deposit(wethTokenAddress, AMOUNT, deployer, 0)
-    console.log("Desposited!")
+    await lendingPool.deposit(wethTokenAddress, AMOUNT, deployer, 0);
+    console.log("Desposited!");
+    let { availableBorrowsETH, totalDebtETH } = await getBorrowUserData(lendingPool, deployer);
 
  }
 
@@ -29,6 +30,18 @@ async function approveErc20(erc20Address, spenderAddress, amount, signer) {
     txResponse = await erc20Token.approve(spenderAddress, amount);
     await txResponse.wait(1);
     console.log("Approved!");
+}
+
+async function getBorrowUserData(lendingPool, account) {
+    const {
+        totalCollateralETH,
+        totalDebtETH,
+        availableBorrowsETH
+    } = await lendingPool.getUserAccountData(account)
+    console.log(`You have ${totalCollateralETH} worth of ETH deposited.`)
+    console.log(`You have ${totalDebtETH} worth of ETH borrowed.`)
+    console.log(`You can borrow ${availableBorrowsETH} worth of ETH.`)
+    return { availableBorrowsETH, totalDebtETH }
 }
 
  main()
