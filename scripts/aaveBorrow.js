@@ -88,5 +88,4 @@ async function getBorrowUserData(lendingPool, account) {
         console.error(error);
         process.exit(1);
     });
-
-// 20:30
+// 20:30:00
